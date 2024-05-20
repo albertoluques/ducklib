@@ -1,6 +1,7 @@
 package com.oracleone.ducklib;
 
-import com.oracleone.ducklib.model.BookListData;
+import com.oracleone.ducklib.model.BookData;
+import com.oracleone.ducklib.principal.Principal;
 import com.oracleone.ducklib.service.ConsumeAPI;
 import com.oracleone.ducklib.service.DataConversion;
 import org.springframework.boot.CommandLineRunner;
@@ -16,12 +17,7 @@ public class DucklibApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var consumeAPI = new ConsumeAPI();
-		var json = consumeAPI.obtainData("https://gutendex.com/books/?search=pride");
-		System.out.println(json);
-
-		DataConversion conversor = new DataConversion();
-		var data = conversor.obtainData(json, BookListData.class);
-		System.out.println(data);
+		Principal principal = new Principal();
+		principal.showMenu();
 	}
 }
