@@ -79,9 +79,9 @@ public class Author {
     @Override
     public String toString() {
         return
-                "name='" + name + '\'' +
-                ", birthYear=" + birthYear +
-                ", deathYear=" + deathYear +
-                ", book=" + book;
+                "\uD83D\uDC64 Author name: " + name +
+                " Birth: " + birthYear +
+                " Decease: " + deathYear +
+                " Book: " + book;
     }
 }

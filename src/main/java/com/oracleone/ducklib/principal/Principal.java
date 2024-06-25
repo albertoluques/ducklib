@@ -6,6 +6,7 @@ import com.oracleone.ducklib.repository.BookRepository;
 import com.oracleone.ducklib.service.ConsumeAPI;
 import com.oracleone.ducklib.service.DataConversion;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -27,50 +28,64 @@ public class Principal {
 
     public void showMenu() {
         var option = -1;
-        while (option != 0) {
-            var menu = """
-                    1 - Search by title
-                    2 - Show registered books
-                    3 - Show registered authors
-                    4 - Show alive authors according by year
-                    5 - List books by language
-                    6 - Top 10 most downloaded books
+
+        System.out.println("""
+                
+                    ******************************************
+                    *       🦆 WELCOME TO DUCKLIB! 🦆        *
+                    ******************************************""");
+            while (option != 0) {
+                var menu = """
+                    Please select one of the following options:
+                    
+                    1 - 📘 Search by title
+                    2 - 📚 Show registered books
+                    3 - 👥 Show registered authors
+                    4 - 🕰️ Show alive authors according by year
+                    5 - 🌎 List books by language
+                    6 - 💯 Top 10 most downloaded books
                     
                     0 - Exit application
                     """;
-            System.out.println(menu);
-            option = scan.nextInt();
-            scan.nextLine();
+                try {
+                    System.out.println(menu);
+                    option = scan.nextInt();
+                    scan.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("Please input a number");
+                    scan.nextLine();
+                }
 
-            switch (option) {
-                case 1:
-                    searchBookData();
-                    break;
-                case 2:
-                    showBooks();
-                    break;
-                case 3:
-                    showAuthors();
-                    break;
-                case 4:
-                    aliveAuthorsPerYear();
-                    break;
-                case 5:
-                    listBooksByLanguage();
-                    break;
-                case 6:
-                    topDownloadedBooks();
-                    break;
+                switch (option) {
+                    case 1:
+                        searchBookData();
+                        break;
+                    case 2:
+                        showBooks();
+                        break;
+                    case 3:
+                        showAuthors();
+                        break;
+                    case 4:
+                        aliveAuthorsPerYear();
+                        break;
+                    case 5:
+                        listBooksByLanguage();
+                        break;
+                    case 6:
+                        topDownloadedBooks();
+                        break;
 
 
-                case 0:
-                    System.out.println("Closing the application");
-                    break;
-                default:
-                    System.out.println("Option unavailable!");
-                    break;
+                    case 0:
+                        System.out.println("Closing the application");
+                        break;
+                    default:
+                        System.out.println("Option unavailable!");
+                        break;
+                }
             }
-        }
+
     }
 
     // Methods
@@ -93,7 +108,7 @@ public class Principal {
 
             Optional<Book> bookRegistered = bookRepository.findByTitle(book.getTitle());
             if (bookRegistered.isPresent()) {
-                System.out.println("The book is already on our database!");
+                System.out.println("The book is already on our database! ✅");
             } else {
                 if (!myBook.author().isEmpty()) {
                     AuthorData authorData = myBook.author().get(0);
@@ -112,18 +127,18 @@ public class Principal {
 
                     Integer downloadAmount = book.getDownloads() != null ? book.getDownloads() : 0;
                     System.out.println("""
-                            Book:
-                            Title: %s
-                            Author: %s
-                            Language: %s
-                            Downloads: %s
+                            📖 Book:
+                            📘 Title: %s
+                            👤 Author: %s
+                            🌎 Language: %s
+                            ⬇️ Downloads: %s
                             """.formatted(book.getTitle(), author.getName(), book.getLanguages(), book.getDownloads()));
                 } else {
-                    System.out.println("without author");
+                    System.out.println("Without author \uD83D\uDE22");
                 }
             }
         } else {
-            System.out.println("Book not found :/");
+            System.out.println("Book not found ❌ ");
         }
     }
 
@@ -158,14 +173,14 @@ public class Principal {
         while (option != 0) {
             var languageMenu = """
                 
-                Select an option (with number) to list books on that language
+                Select an option (number) to list books on that language
                 
-                1. EN - ENGLISH 
-                2. ES - SPANISH
-                3. FR - FRENCH
-                4. PT - PORTUGUESE 
+                1. 🇺🇸 EN - ENGLISH
+                2. 🇲🇽 ES - SPANISH
+                3. 🇫🇷 FR - FRENCH
+                4. 🇧🇷 PT - PORTUGUESE
                 
-                0 - Return to the main option menu
+                0.  🔙 - Return to the main option menu -
                 
                 """;
             System.out.println(languageMenu);

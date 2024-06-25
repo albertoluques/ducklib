@@ -98,9 +98,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return
-                "title='" + title + '\'' +
-                ", languages=" + languages +
-                ", downloads=" + downloads;
+        String authorName = (author != null) ? author.getName() : "Unknown author";
+        String bookInfo =   "\uD83D\uDCD6 Book title: " + title + " | " + "\uD83D\uDC64 Author: " + authorName + " | " + "\uD83C\uDF10 Language: " + languages + " | " + "\uD83D\uDD3D Downloads: " + downloads;
+        return bookInfo;
     }
 }
